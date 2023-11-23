@@ -8,6 +8,7 @@ public class InputManager : MonoBehaviour
 {
     #region Components
 
+    [SerializeField] private GameManager _gameManager;
     private PlayerInputSystem _playerInputSystem;
 
     #endregion
@@ -24,6 +25,8 @@ public class InputManager : MonoBehaviour
     {
         _playerInputSystem = new PlayerInputSystem();
 
+        _gameManager.OnGameIsOver += StopInputs;
+
         _playerInputSystem.Player.Movement.started += HandleMovementInput;
         _playerInputSystem.Player.Movement.canceled += HandleMovementInput;
         _playerInputSystem.Player.Movement.performed += HandleMovementInput;
@@ -33,6 +36,12 @@ public class InputManager : MonoBehaviour
 
         _playerInputSystem.Player.Run.started += HandleRunInput;
         _playerInputSystem.Player.Run.canceled += HandleRunInput;
+    }
+
+    private void StopInputs(bool gameIsOver)
+    {
+        if(!gameIsOver) return;
+        _playerInputSystem.Disable();
     }
 
     private void HandleRunInput(InputAction.CallbackContext context)

@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,14 +13,38 @@ public class GameManager : MonoBehaviour
     public static event Action<InputAction.CallbackContext> OnMoveReceived;
     public static event Action<bool> OnInteractionReceived;
     public static event Action<bool> OnRunReceived;
+    public event Action<bool> OnGameIsOver;
 
     public int Points;
+    public float TimeToEnd;
+    public bool GameIsOver;
+
+    public float TimerGame;
 
     private void Awake()
     {
         _inputManager.OnMove += HandleMovement;
         _inputManager.OnInteraction += HandleInteraction;
         _inputManager.OnRun += HandleRun;
+
+        TimerGame = TimeToEnd;
+        GameIsOver = false;
+    }
+
+    private void Update()
+    {
+        TimerGame -= Time.deltaTime;
+        if (TimerGame <= 0)
+        {
+            TimerGame = 0f;
+            GameIsOver = true;
+            OnGameIsOver?.Invoke(GameIsOver);
+        }
+
+        if (Points <= 0)
+        {
+            Points = 0;
+        }
     }
 
     private void HandleRun(bool isRunning)

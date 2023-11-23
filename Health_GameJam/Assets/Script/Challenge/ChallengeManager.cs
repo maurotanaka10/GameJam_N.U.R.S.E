@@ -25,6 +25,7 @@ public class ChallengeManager : MonoBehaviour
     private void Awake()
     {
         ActivedRandomChallenge(_taskDuration);
+        
     }
 
     private void Update()
