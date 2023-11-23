@@ -18,6 +18,18 @@ public class SpawnChallengeController : MonoBehaviour
 
     public GameObject SelectedPatientCheck;
     public GameObject SelectedPatientFood;
+
+
+    #region UI Challenge Variables
+
+    [SerializeField] private GameObject[] _timerChallengePrefab;
+    [SerializeField] private RectTransform[] _patientTransform;
+    [SerializeField] private RectTransform[] _dirtTransform;
+    private GameObject _timerFoodChallengeInstance;
+    private GameObject _timerClearChallengeInstance;
+    private GameObject _timerCheckChallengeInstance;
+
+    #endregion
     
     private void Awake()
     {
@@ -46,15 +58,29 @@ public class SpawnChallengeController : MonoBehaviour
         {
             int randomIndex = Random.Range(0, _patients.Length);
             SelectedPatientCheck = _patients[randomIndex];
-            SelectedPatientCheck.GetComponent<PacientScript>().ActivateCheckIndicator();
+
+            while (SelectedPatientCheck == SelectedPatientFood)
+            {
+                randomIndex = Random.Range(0, _patients.Length);
+                SelectedPatientCheck = _patients[randomIndex];
+            }
+
+            if (SelectedPatientCheck == _patients[0])
+            {
+                _timerCheckChallengeInstance = Instantiate(_timerChallengePrefab[1], _patientTransform[0]);
+            }
+            else
+            {
+                _timerCheckChallengeInstance = Instantiate(_timerChallengePrefab[1], _patientTransform[1]);
+            }
         }
     }
 
     public void DestroyCheckPatientChallenge()
     {
-        if (SelectedPatientCheck != null)
+        if (_timerCheckChallengeInstance != null)
         {
-            SelectedPatientCheck.GetComponent<PacientScript>().DeactivateCheckIndicator();
+            Destroy(_timerCheckChallengeInstance);
             SelectedPatientCheck = null;
         }
     }
@@ -69,15 +95,22 @@ public class SpawnChallengeController : MonoBehaviour
             randomIndex = Random.Range(0, _patients.Length);
             SelectedPatientFood = _patients[randomIndex];
         }
-    
-        SelectedPatientFood.GetComponent<PacientScript>().ActivateFoodIndicator();
+        
+        if (SelectedPatientFood == _patients[0])
+        {
+            _timerFoodChallengeInstance = Instantiate(_timerChallengePrefab[2], _patientTransform[0]);
+        }
+        else
+        {
+            _timerFoodChallengeInstance = Instantiate(_timerChallengePrefab[2], _patientTransform[1]);
+        }
     }
 
     public void DestroyFoodChallenge()
     {
-        if (SelectedPatientFood != null)
+        if (_timerFoodChallengeInstance != null)
         {
-            SelectedPatientFood.GetComponent<PacientScript>().DeactivateFoodIndicator();
+            Destroy(_timerFoodChallengeInstance);
             SelectedPatientFood = null;
         }
     }
@@ -90,6 +123,27 @@ public class SpawnChallengeController : MonoBehaviour
             Transform randomSpawnClearPoint = _spawnClearPoints[randomIndex];
 
             InstantiateClearChallengeIndicator(randomSpawnClearPoint.position);
+
+            if (randomIndex == 0)
+            {
+                _timerClearChallengeInstance = Instantiate(_timerChallengePrefab[0], _dirtTransform[0]);
+            }
+            else if (randomIndex == 1)
+            {
+                _timerClearChallengeInstance = Instantiate(_timerChallengePrefab[0], _dirtTransform[1]);
+            }
+            else if (randomIndex == 2)
+            {
+                _timerClearChallengeInstance = Instantiate(_timerChallengePrefab[0], _dirtTransform[2]);
+            }
+            else if (randomIndex == 3)
+            {
+                _timerClearChallengeInstance = Instantiate(_timerChallengePrefab[0], _dirtTransform[3]);
+            }
+            else
+            {
+                _timerClearChallengeInstance = Instantiate(_timerChallengePrefab[0], _dirtTransform[4]);
+            }
         }
     }
 
@@ -108,8 +162,9 @@ public class SpawnChallengeController : MonoBehaviour
 
     public void DestroyClearChallenge()
     {
-        if (_clearPrefabInstance != null)
+        if (_timerClearChallengeInstance != null)
         {
+            Destroy(_timerClearChallengeInstance);
             _clearPrefabInstance.SetActive(false);
         }
     }
