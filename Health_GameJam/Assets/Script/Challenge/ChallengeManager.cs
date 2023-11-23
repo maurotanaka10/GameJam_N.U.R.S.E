@@ -17,6 +17,7 @@ public class ChallengeManager : MonoBehaviour
 
     private float _timerForAddChallenge = 0f;
     private bool _completedChallenge = false;
+    private bool _gameIsOver = false;
     [SerializeField] private float _timeToAddChallenge;
     [SerializeField] private float _taskDuration;
     [SerializeField] private int _pointsEarnedPerChallenge;
@@ -25,18 +26,27 @@ public class ChallengeManager : MonoBehaviour
     private void Awake()
     {
         ActivedRandomChallenge(_taskDuration);
-        
+
+        _gameManager.OnGameIsOver += StopTasksController;
+    }
+
+    private void StopTasksController(bool gameIsOver)
+    {
+        _gameIsOver = gameIsOver;
     }
 
     private void Update()
     {
-        TimerToAddSecondChallenge();
-
-        _completedChallenge = false;
-        
-        for(int i = 0; i < _activeChallenges.Count; i++)
+        if (!_gameIsOver)
         {
-            _activeChallenges[i].UpdateTimer(Time.deltaTime);
+            TimerToAddSecondChallenge();
+
+            _completedChallenge = false;
+
+            for (int i = 0; i < _activeChallenges.Count; i++)
+            {
+                _activeChallenges[i].UpdateTimer(Time.deltaTime);
+            }
         }
     }
 
@@ -106,13 +116,21 @@ public class ChallengeManager : MonoBehaviour
 
     public void RemoveChallenge(EChallenges challengesToRemove)
     {
-        ActiveChallenge challenge = _activeChallenges.Find(active => active.ChallengeType == challengesToRemove);
-        if (challenge != null)
+        if (!_gameIsOver)
         {
-            _activeChallenges.Remove(challenge);
-            Debug.Log($"Desafio removido: {challengesToRemove}");
-            _gameManager.Points -= _pointsLostedPerChallenge;
+            ActiveChallenge challenge = _activeChallenges.Find(active => active.ChallengeType == challengesToRemove);
+            if (challenge != null)
+            {
+                _activeChallenges.Remove(challenge);
+                Debug.Log($"Desafio removido: {challengesToRemove}");
+                _gameManager.Points -= _pointsLostedPerChallenge;
+            }
         }
+    }
+
+    private void OnDisable()
+    {
+        _gameManager.OnGameIsOver -= StopTasksController;
     }
 }
 

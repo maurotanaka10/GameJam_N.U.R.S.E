@@ -68,6 +68,7 @@ public class InputManager : MonoBehaviour
     {
         _playerInputSystem.Player.Disable();
         
+        _gameManager.OnGameIsOver -= StopInputs;
         _playerInputSystem.Player.Movement.started -= HandleMovementInput;
         _playerInputSystem.Player.Movement.canceled -= HandleMovementInput;
         _playerInputSystem.Player.Movement.performed -= HandleMovementInput;

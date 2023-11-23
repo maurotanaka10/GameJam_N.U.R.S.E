@@ -210,7 +210,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1706357587}
+  - {fileID: 1104336250}
   m_Father: {fileID: 1591083085}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &22061977
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 1579651615}
-  _spawnChallengeController: {fileID: 1706357588}
+  _spawnChallengeController: {fileID: 1104336251}
   ChallengesList: 000000000100000002000000
   _timeToAddChallenge: 7
   _taskDuration: 15
@@ -390,7 +390,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 561, y: -24}
+  m_AnchoredPosition: {x: 23, y: -24}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &38876000
@@ -3958,6 +3958,76 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _doctorController: {fileID: 932957737}
+--- !u!1 &1104336249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1104336250}
+  - component: {fileID: 1104336251}
+  m_Layer: 0
+  m_Name: SpawnChallengeController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1104336250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104336249}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0025045201, y: 33.21624, z: -2.7432077}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 22061976}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1104336251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104336249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301e9b452ca15014aa74710e625e3119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _challengeManager: {fileID: 22061977}
+  _patients:
+  - {fileID: 87852569}
+  - {fileID: 837031345}
+  _spawnClearPoints:
+  - {fileID: 646499083}
+  - {fileID: 796141941}
+  - {fileID: 1528244722}
+  - {fileID: 546243168}
+  - {fileID: 627409411}
+  _clearPrefab: {fileID: 3783937525782568813, guid: 093bc26b25e1bcc4190d4881e4a46d1e, type: 3}
+  SelectedPatientCheck: {fileID: 0}
+  SelectedPatientFood: {fileID: 0}
+  _timerChallengePrefab:
+  - {fileID: 2715815788497029831, guid: 0eaa9bbdce3bf1b4bb2bd2f3a1ecac94, type: 3}
+  - {fileID: 2488156536375118879, guid: 96c70d19cd6052b4b920dd118b9aeb68, type: 3}
+  - {fileID: 2710788379949002980, guid: e05cec38303e7f84fbc70c3ef4b362df, type: 3}
+  _patientTransform:
+  - {fileID: 1750144623}
+  - {fileID: 963098327}
+  _dirtTransform:
+  - {fileID: 1769129127}
+  - {fileID: 1032555175}
+  - {fileID: 1516335301}
+  - {fileID: 1142069989}
+  - {fileID: 248208582}
 --- !u!1001 &1136058462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5686,76 +5756,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 497050, guid: 8555b5e3674ee2a49b8206c8ce692744, type: 3}
   m_PrefabInstance: {fileID: 363641243}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1706357586
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1706357587}
-  - component: {fileID: 1706357588}
-  m_Layer: 0
-  m_Name: SpawnChallengeController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1706357587
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1706357586}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0025045201, y: 33.21624, z: -2.7432077}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 22061976}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1706357588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1706357586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 301e9b452ca15014aa74710e625e3119, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _challengeManager: {fileID: 22061977}
-  _patients:
-  - {fileID: 87852569}
-  - {fileID: 837031345}
-  _spawnClearPoints:
-  - {fileID: 646499083}
-  - {fileID: 796141941}
-  - {fileID: 1528244722}
-  - {fileID: 546243168}
-  - {fileID: 627409411}
-  _clearPrefab: {fileID: 3783937525782568813, guid: 093bc26b25e1bcc4190d4881e4a46d1e, type: 3}
-  SelectedPatientCheck: {fileID: 0}
-  SelectedPatientFood: {fileID: 0}
-  _timerChallengePrefab:
-  - {fileID: 2715815788497029831, guid: 0eaa9bbdce3bf1b4bb2bd2f3a1ecac94, type: 3}
-  - {fileID: 2488156536375118879, guid: 96c70d19cd6052b4b920dd118b9aeb68, type: 3}
-  - {fileID: 2710788379949002980, guid: e05cec38303e7f84fbc70c3ef4b362df, type: 3}
-  _patientTransform:
-  - {fileID: 1750144623}
-  - {fileID: 963098327}
-  _dirtTransform:
-  - {fileID: 1769129127}
-  - {fileID: 1032555175}
-  - {fileID: 1516335301}
-  - {fileID: 1142069989}
-  - {fileID: 248208582}
 --- !u!1 &1750144622
 GameObject:
   m_ObjectHideFlags: 0
@@ -7347,6 +7347,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7145556254182641667, guid: 3d5933bc05dfaed4ba0d5fec01523944, type: 3}
+      propertyPath: _gameManager
+      value: 
+      objectReference: {fileID: 1579651615}
+    - target: {fileID: 7145556254182641667, guid: 3d5933bc05dfaed4ba0d5fec01523944, type: 3}
       propertyPath: _challengeManager
       value: 
       objectReference: {fileID: 22061977}
@@ -7357,7 +7361,7 @@ PrefabInstance:
     - target: {fileID: 7145556254182641667, guid: 3d5933bc05dfaed4ba0d5fec01523944, type: 3}
       propertyPath: _spawnChallengeController
       value: 
-      objectReference: {fileID: 1706357588}
+      objectReference: {fileID: 1104336251}
     - target: {fileID: 7939278001944339678, guid: 3d5933bc05dfaed4ba0d5fec01523944, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.771

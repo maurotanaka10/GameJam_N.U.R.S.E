@@ -8,13 +8,15 @@ public class InteractionController : MonoBehaviour
 {
     [SerializeField] private ChallengeManager _challengeManager;
     [SerializeField] private SpawnChallengeController _spawnChallengeController;
-    
+    [SerializeField] private GameManager _gameManager;
+
     [SerializeField] private Transform _localHand;
     private GameObject _objectToPickup;
     private bool _isCarryingObject = false;
     private bool _inAction = false;
     private float _interactionTimer;
     private GameObject _currentInteractedPatient;
+    private GameObject _currentFoodPatient;
 
     #region Food Challenge Variables
 
@@ -37,7 +39,7 @@ public class InteractionController : MonoBehaviour
     [SerializeField] private float _interactionPacienteDuration;
 
     #endregion
-    
+
     private void Awake()
     {
         PlayerManager.OnInteractionHandle += HandlerInteraction;
@@ -52,7 +54,7 @@ public class InteractionController : MonoBehaviour
             {
                 DropObject();
             }
-            else if(_objectToPickup != null)
+            else if (_objectToPickup != null)
             {
                 PickUpObject();
             }
@@ -83,16 +85,23 @@ public class InteractionController : MonoBehaviour
         {
             _objectToPickup = collider.gameObject;
         }
+
         if (_isCarryingObject && collider.gameObject.CompareTag("Patient"))
         {
             ResetPositionObject();
-            ConclusionFoodChallenge();
+            _currentFoodPatient = collider.gameObject;
+            if (_currentFoodPatient == _spawnChallengeController.SelectedPatientFood)
+            {
+                ConclusionFoodChallenge();
+            }
         }
+
         if (collider.gameObject.CompareTag("Dirt"))
         {
             _canDoClearChallenge = true;
             _inAction = true;
         }
+
         if (collider.gameObject.CompareTag("Patient"))
         {
             _canDoPacienteCheckChallenge = true;
@@ -160,9 +169,10 @@ public class InteractionController : MonoBehaviour
             Debug.Log($"concluiu o teste de checcar o paciente correto");
             _challengeManager.CompleteChallenge(EChallenges.CheckPacient);
             _spawnChallengeController.DestroyCheckPatientChallenge();
+            _inAction = false;
         }
     }
-    
+
     private void ConclusionClearChallenge()
     {
         Debug.Log($"concluiu o teste de limpeza");

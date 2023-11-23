@@ -54,6 +54,10 @@ public class AnimationComponent : MonoBehaviour
         {
             _animator.SetBool(_inActionHash, true);
         }
+        else if(isInteracting && !PlayerInAction)
+        {
+            _animator.SetBool(_inActionHash, false);
+        }
         else
         {
             _animator.SetBool(_inActionHash, false);
