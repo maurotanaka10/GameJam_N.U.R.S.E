@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -20,57 +18,22 @@ public class AnimationComponent : MonoBehaviour
 
     #endregion
 
-    #region Variables
-    
-    public bool PlayerInAction;
-
-    #endregion
-
-    #region Delegate
-
-    public delegate float PlayerVelocityReference();
-
-    public static PlayerVelocityReference PlayerVelocityRef;
-
-    #endregion
-
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         GetAnimatorParameters();
-
-        PlayerManager.OnInteractionHandle += HandlerInteractionAnimation;
+        
+        PlayerManager.OnInteract += () => SetActionAnimation(true);
+        PlayerManager.OnDisableInteract += () => SetActionAnimation(false);
     }
 
-
-    private void Update()
+    public void SetActionAnimation(bool isOn)
     {
-        PlayerInAction = PlayerManager.InActionRef.Invoke();
-    }
-    
-    private void HandlerInteractionAnimation(bool isInteracting)
-    {
-        if (isInteracting && PlayerInAction)
-        {
-            _animator.SetBool(_inActionHash, true);
-        }
-        else if(isInteracting && !PlayerInAction)
-        {
-            _animator.SetBool(_inActionHash, false);
-        }
-        else
-        {
-            _animator.SetBool(_inActionHash, false);
-        }
+        _animator.SetBool(_inActionHash, isOn);
     }
     
     private void GetAnimatorParameters()
     {
         _inActionHash = Animator.StringToHash("inAction");
-    }
-
-    private void OnDisable()
-    {
-        PlayerManager.OnInteractionHandle -= HandlerInteractionAnimation;
     }
 }

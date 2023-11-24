@@ -169,7 +169,7 @@ public class SpawnChallengeController : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         _challengeManager.OnChallengeActivated -= HandlerSpawnChallenge;
     }

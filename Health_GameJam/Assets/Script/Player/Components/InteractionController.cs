@@ -6,6 +6,7 @@ using Vector3 = System.Numerics.Vector3;
 
 public class InteractionController : MonoBehaviour
 {
+    [SerializeField] private PlayerManager _playerManager;
     [SerializeField] private ChallengeManager _challengeManager;
     [SerializeField] private SpawnChallengeController _spawnChallengeController;
     [SerializeField] private GameManager _gameManager;
@@ -15,10 +16,13 @@ public class InteractionController : MonoBehaviour
     [SerializeField] private Transform _localHand;
     private GameObject _objectToPickup;
     private bool _isCarryingObject = false;
-    private bool _inAction = false;
+    private bool _challengeCompleted = false;
+    private bool _challengective = false;
     private float _interactionTimer;
     private GameObject _currentInteractedPatient;
     private GameObject _currentFoodPatient;
+
+    public event Action OnErrorTask;
 
     #region Food Challenge Variables
 
@@ -45,7 +49,6 @@ public class InteractionController : MonoBehaviour
     private void Awake()
     {
         PlayerManager.OnInteractionHandle += HandlerInteraction;
-        PlayerManager.InActionRef = GetInAction;
     }
 
     private void HandlerInteraction(bool isInteracting)
@@ -62,19 +65,28 @@ public class InteractionController : MonoBehaviour
             }
             else if (_canDoClearChallenge)
             {
+                _playerManager.Interact();
+
                 _isDoingClearChallenge = true;
                 _playerSounds.SoundClearChallenge();
             }
             else if (_canDoPacienteCheckChallenge)
             {
+                _playerManager.Interact();
+
                 _isDoingPacienteChallenge = true;
                 _playerSounds.SoundCheckChallenge();
             }
         }
         else
         {
+            _playerManager.DisableInteraction();
+            _playerSounds.StopAllSounds();
             _isDoingClearChallenge = false;
             _isDoingPacienteChallenge = false;
+
+            _challengective = false;
+            _challengeCompleted = false;
         }
     }
 
@@ -103,14 +115,12 @@ public class InteractionController : MonoBehaviour
         if (collider.gameObject.CompareTag("Dirt"))
         {
             _canDoClearChallenge = true;
-            _inAction = true;
         }
 
         if (collider.gameObject.CompareTag("Patient"))
         {
             _canDoPacienteCheckChallenge = true;
             _currentInteractedPatient = collider.gameObject;
-            _inAction = true;
         }
     }
 
@@ -124,14 +134,12 @@ public class InteractionController : MonoBehaviour
         {
             _canDoClearChallenge = false;
             ResetInteractionTimer();
-            _inAction = false;
         }
         else if (collider.gameObject.CompareTag("Patient"))
         {
             _canDoPacienteCheckChallenge = false;
             _currentInteractedPatient = null;
             ResetInteractionTimer();
-            _inAction = false;
         }
     }
 
@@ -144,7 +152,8 @@ public class InteractionController : MonoBehaviour
             {
                 ConclusionClearChallenge();
                 _canDoClearChallenge = false;
-                _inAction = false;
+
+                _playerManager.DisableInteraction();
             }
         }
         else if (_isDoingPacienteChallenge)
@@ -170,19 +179,30 @@ public class InteractionController : MonoBehaviour
     {
         if (patientInteracted == _spawnChallengeController.SelectedPatientCheck)
         {
-            Debug.Log($"concluiu o teste de checcar o paciente correto");
             _challengeManager.CompleteChallenge(EChallenges.CheckPacient);
             _spawnChallengeController.DestroyCheckPatientChallenge();
-            _inAction = false;
+
+            _playerManager.DisableInteraction();
             _enviromentSounds.SoundTaskComplete();
             _enviromentSounds._soundIsPlaying = false;
             _playerSounds.StopAllSounds();
+            _challengeCompleted = true;
+        }
+        else
+        {
+            _challengective = true;
+            
+            if (_challengective && !_challengeCompleted)
+            {
+                OnErrorTask?.Invoke();
+                _playerManager.DisableInteraction();
+            }
+
         }
     }
 
     private void ConclusionClearChallenge()
     {
-        Debug.Log($"concluiu o teste de limpeza");
         _challengeManager.CompleteChallenge(EChallenges.Clear);
         _spawnChallengeController.DestroyClearChallenge();
         _enviromentSounds.SoundTaskComplete();
@@ -204,7 +224,7 @@ public class InteractionController : MonoBehaviour
         _objectToPickup.transform.position = _localHand.transform.position;
         _objectToPickup.GetComponent<Rigidbody>().isKinematic = true;
         _isCarryingObject = true;
-        
+
         _playerSounds.SoundFoodChallenge();
     }
 
@@ -222,11 +242,6 @@ public class InteractionController : MonoBehaviour
         _objectToPickup.transform.SetParent(null);
         _objectToPickup.GetComponent<Rigidbody>().isKinematic = false;
         _isCarryingObject = false;
-    }
-
-    private bool GetInAction()
-    {
-        return _inAction;
     }
 
     private void OnDisable()

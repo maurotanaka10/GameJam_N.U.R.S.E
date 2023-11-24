@@ -210,7 +210,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 449456175}
+  - {fileID: 687799731}
   m_Father: {fileID: 1591083085}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &22061977
@@ -226,8 +226,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameManager: {fileID: 1579651615}
-  _spawnChallengeController: {fileID: 449456176}
+  _spawnChallengeController: {fileID: 687799732}
   _playerSounds: {fileID: 1943924682}
+  _errorSound: {fileID: 1425623549}
   ChallengesList: 000000000100000002000000
   _timeToAddChallenge: 7
   _taskDuration: 15
@@ -1529,76 +1530,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 438334, guid: f8ca8b584672e2c44b786aedd156b7eb, type: 3}
   m_PrefabInstance: {fileID: 250368947}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &449456174
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 449456175}
-  - component: {fileID: 449456176}
-  m_Layer: 0
-  m_Name: SpawnChallengeController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &449456175
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 449456174}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0025045201, y: 33.21624, z: -2.7432077}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 22061976}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &449456176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 449456174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 301e9b452ca15014aa74710e625e3119, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _challengeManager: {fileID: 22061977}
-  _patients:
-  - {fileID: 87852569}
-  - {fileID: 837031345}
-  _spawnClearPoints:
-  - {fileID: 646499083}
-  - {fileID: 796141941}
-  - {fileID: 1528244722}
-  - {fileID: 546243168}
-  - {fileID: 627409411}
-  _clearPrefab: {fileID: 3783937525782568813, guid: 093bc26b25e1bcc4190d4881e4a46d1e, type: 3}
-  SelectedPatientCheck: {fileID: 0}
-  SelectedPatientFood: {fileID: 0}
-  _timerChallengePrefab:
-  - {fileID: 2715815788497029831, guid: 0eaa9bbdce3bf1b4bb2bd2f3a1ecac94, type: 3}
-  - {fileID: 2488156536375118879, guid: 96c70d19cd6052b4b920dd118b9aeb68, type: 3}
-  - {fileID: 2710788379949002980, guid: e05cec38303e7f84fbc70c3ef4b362df, type: 3}
-  _patientTransform:
-  - {fileID: 1750144623}
-  - {fileID: 963098327}
-  _dirtTransform:
-  - {fileID: 1769129127}
-  - {fileID: 1032555175}
-  - {fileID: 1516335301}
-  - {fileID: 1142069989}
-  - {fileID: 248208582}
 --- !u!1001 &452590554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2487,6 +2418,76 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 6f1657bd5ca87244f9f16d256273b0d7, type: 2}
   m_BuildHeightMesh: 0
+--- !u!1 &687799730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 687799731}
+  - component: {fileID: 687799732}
+  m_Layer: 0
+  m_Name: SpawnChallengeController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &687799731
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687799730}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0025045201, y: 33.21624, z: -2.7432077}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 22061976}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &687799732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687799730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301e9b452ca15014aa74710e625e3119, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _challengeManager: {fileID: 22061977}
+  _patients:
+  - {fileID: 87852569}
+  - {fileID: 837031345}
+  _spawnClearPoints:
+  - {fileID: 646499083}
+  - {fileID: 796141941}
+  - {fileID: 1528244722}
+  - {fileID: 546243168}
+  - {fileID: 627409411}
+  _clearPrefab: {fileID: 3783937525782568813, guid: 093bc26b25e1bcc4190d4881e4a46d1e, type: 3}
+  SelectedPatientCheck: {fileID: 0}
+  SelectedPatientFood: {fileID: 0}
+  _timerChallengePrefab:
+  - {fileID: 2715815788497029831, guid: 0eaa9bbdce3bf1b4bb2bd2f3a1ecac94, type: 3}
+  - {fileID: 2488156536375118879, guid: 96c70d19cd6052b4b920dd118b9aeb68, type: 3}
+  - {fileID: 2710788379949002980, guid: e05cec38303e7f84fbc70c3ef4b362df, type: 3}
+  _patientTransform:
+  - {fileID: 1750144623}
+  - {fileID: 963098327}
+  _dirtTransform:
+  - {fileID: 1769129127}
+  - {fileID: 1032555175}
+  - {fileID: 1516335301}
+  - {fileID: 1142069989}
+  - {fileID: 248208582}
 --- !u!1 &690152642
 GameObject:
   m_ObjectHideFlags: 0
@@ -2919,7 +2920,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b792134da03f347b97b3f45f06aa96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerInAction: 0
+--- !u!114 &751829964 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7145556254182641667, guid: 3d5933bc05dfaed4ba0d5fec01523944, type: 3}
+  m_PrefabInstance: {fileID: 4182800045677379125}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751829960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e59578ee6e07e9c418c94ac9f14d470b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &796141940
 GameObject:
   m_ObjectHideFlags: 0
@@ -4039,7 +4050,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1041233266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4087,7 +4098,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 5
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4390,6 +4401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae3574793bae86478c4e483102129b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interactionController: {fileID: 751829964}
   _playerVelocity: 3
   _playerRunVelocity: 5
 --- !u!1 &1171398119
@@ -4425,6 +4437,7 @@ Transform:
   - {fileID: 508322175}
   - {fileID: 1943924680}
   - {fileID: 2130626363}
+  - {fileID: 1425623548}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1173976545 stripped
@@ -4464,8 +4477,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 183830345}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.2, y: 0}
+  m_AnchorMax: {x: 0.2, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5207,6 +5220,149 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: c0cf5c4b37275994588ed1641dc84018, type: 2}
   m_BuildHeightMesh: 0
+--- !u!1 &1425623547
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1425623548}
+  - component: {fileID: 1425623550}
+  - component: {fileID: 1425623549}
+  m_Layer: 0
+  m_Name: Error AudioSource
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1425623548
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425623547}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1171398120}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1425623549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425623547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f55a864b8c7429b448247abc4c99dc00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioErrorClip: {fileID: 8300000, guid: 4932d268525082a40a7953ce6c2f493d, type: 3}
+  _volume: 24.4
+--- !u!82 &1425623550
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425623547}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &1427494671 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 438334, guid: f8ca8b584672e2c44b786aedd156b7eb, type: 3}
@@ -5558,6 +5714,7 @@ MonoBehaviour:
   _inputManager: {fileID: 407495911}
   _enviromentSounds: {fileID: 2130626364}
   Points: 0
+  _takePoints: 5
   TimeToEnd: 150
   GameIsOver: 0
   TimerGame: 0
@@ -6770,7 +6927,7 @@ RectTransform:
   m_Father: {fileID: 864541363}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.2, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8041,6 +8198,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1943924682}
     - target: {fileID: 7145556254182641667, guid: 3d5933bc05dfaed4ba0d5fec01523944, type: 3}
+      propertyPath: _playerManager
+      value: 
+      objectReference: {fileID: 1163868553}
+    - target: {fileID: 7145556254182641667, guid: 3d5933bc05dfaed4ba0d5fec01523944, type: 3}
       propertyPath: _challengeManager
       value: 
       objectReference: {fileID: 22061977}
@@ -8055,7 +8216,7 @@ PrefabInstance:
     - target: {fileID: 7145556254182641667, guid: 3d5933bc05dfaed4ba0d5fec01523944, type: 3}
       propertyPath: _spawnChallengeController
       value: 
-      objectReference: {fileID: 449456176}
+      objectReference: {fileID: 687799732}
     - target: {fileID: 7939278001944339678, guid: 3d5933bc05dfaed4ba0d5fec01523944, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.771

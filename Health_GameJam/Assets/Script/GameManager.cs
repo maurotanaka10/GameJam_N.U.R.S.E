@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -14,8 +15,10 @@ public class GameManager : MonoBehaviour
     public event Action<bool> OnGameIsOver;
 
     public int Points;
+    [SerializeField] private int _takePoints;
     public float TimeToEnd;
     public bool GameIsOver;
+    private bool _canTakePoints = true;
 
     public float TimerGame;
 
@@ -25,13 +28,31 @@ public class GameManager : MonoBehaviour
         _inputManager.OnInteraction += HandleInteraction;
         _inputManager.OnRun += HandleRun;
 
+        PlayerManager.OnSoundErrorReceived += HandlePoints;
+
         TimerGame = TimeToEnd;
         GameIsOver = false;
     }
 
+    private void HandlePoints()
+    {
+        StartCoroutine(DelayToTakePoints());
+    }
+
     private void Update()
     {
+        HandlerGameIsOver();
+        
+        if (Points <= 0)
+        {
+            Points = 0;
+        }
+    }
+
+    private void HandlerGameIsOver()
+    {
         TimerGame -= Time.deltaTime;
+        
         if (TimerGame <= 0)
         {
             TimerGame = 0f;
@@ -39,11 +60,6 @@ public class GameManager : MonoBehaviour
             OnGameIsOver?.Invoke(GameIsOver);
             _enviromentSounds.SoundGameComplete();
             _enviromentSounds._soundIsPlaying = false;
-        }
-
-        if (Points <= 0)
-        {
-            Points = 0;
         }
     }
 
@@ -60,6 +76,18 @@ public class GameManager : MonoBehaviour
     private void HandleMovement(InputAction.CallbackContext context)
     {
         OnMoveReceived?.Invoke(context);
+    }
+
+    private IEnumerator DelayToTakePoints()
+    {
+        if (_canTakePoints)
+        {
+            _canTakePoints = false;
+
+            Points -= _takePoints;
+            yield return new WaitForSeconds(5f);
+            _canTakePoints = true;
+        }
     }
 
     private void OnDisable()

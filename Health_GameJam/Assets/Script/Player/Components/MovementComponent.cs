@@ -41,7 +41,6 @@ public class MovementComponent : MonoBehaviour
 
         PlayerManager.OnMovementHandle += SetMoveInfo;
         PlayerManager.OnRunHandle += HandleRunning;
-        PlayerManager.CharacterControllerRef = GetCharacterController;
 
         _playerVelocity = 3f;
     }
@@ -71,7 +70,6 @@ public class MovementComponent : MonoBehaviour
     private void SetMovement(Vector2 _characterMovementInput)
     {
         _isMoving = _characterMovementInput.x != 0 || _characterMovementInput.y != 0;
-        Debug.Log($"isMoving: {_isMoving}");
 
         _characterMovement = new Vector3(_characterMovementInput.x, _gravityVelocity, _characterMovementInput.y);
         _characterController.Move(_characterMovement * (_playerVelocity * Time.deltaTime));
@@ -103,10 +101,6 @@ public class MovementComponent : MonoBehaviour
         _characterMovement.y = _gravityVelocity;
     }
 
-    private CharacterController GetCharacterController()
-    {
-        return _characterController;
-    }
 
     private void OnDisable()
     {

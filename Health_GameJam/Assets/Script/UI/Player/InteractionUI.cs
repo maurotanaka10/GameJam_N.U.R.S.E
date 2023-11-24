@@ -13,9 +13,10 @@ public class InteractionUI : MonoBehaviour
 
     private bool _isInteracting = false;
 
-    private void Awake()
+    private void OnEnable()
     {
-        UIManager.OnInteractionUI += HandlerInteractionUI;
+        PlayerManager.OnInteract += HandlerInteractionSlider;
+        PlayerManager.OnDisableInteract += HandlerDisableInteractionSlider;
     }
 
     private void Update()
@@ -23,36 +24,39 @@ public class InteractionUI : MonoBehaviour
         _interactionGameObject.transform.position = new Vector3(_playerTransform.position.x,
             _interactionGameObject.transform.position.y, _playerTransform.transform.position.z);
         
-        HandlerInteractionSlider();
+        ValueSliderController();
+    }
+
+    private void ValueSliderController()
+    {
+        if (_isInteracting)
+        {
+            _interactionGameObject.GetComponent<Slider>().value += Time.deltaTime;
+        }
+        else
+        {
+            _interactionGameObject.GetComponent<Slider>().value = 0f;
+        }
     }
 
     private void HandlerInteractionSlider()
     {
-        if (_isInteracting && _animationComponent.PlayerInAction)
-        {
-            if(_interactionGameObject != null)
-            {
-                _interactionGameObject.SetActive(true);
-                _interactionGameObject.GetComponent<Slider>().value += Time.deltaTime;
-            }
-        }
-        else
-        {
-            if (_interactionGameObject != null)
-            {
-                _interactionGameObject.SetActive(false);
-                _interactionGameObject.GetComponent<Slider>().value = 0f;
-            }
-        }
+        _interactionGameObject.SetActive(true);
+
+        _isInteracting = true;
+    }
+
+    private void HandlerDisableInteractionSlider()
+    {
+        _interactionGameObject.SetActive(false);
+
+        _isInteracting = false;
     }
     
-    private void HandlerInteractionUI(bool isInteracting)
-    {
-        _isInteracting = isInteracting;
-    }
 
     private void OnDisable()
     {
-        UIManager.OnInteractionUI -= HandlerInteractionUI;
+        PlayerManager.OnInteract -= HandlerInteractionSlider;
+        PlayerManager.OnDisableInteract -= HandlerDisableInteractionSlider;
     }
 }

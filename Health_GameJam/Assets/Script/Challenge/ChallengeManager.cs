@@ -10,6 +10,7 @@ public class ChallengeManager : MonoBehaviour
     [SerializeField] private GameManager _gameManager;
     [SerializeField] private SpawnChallengeController _spawnChallengeController;
     [SerializeField] private PlayerSounds _playerSounds;
+    [SerializeField] private ErrorSound _errorSound;
 
     public event Action<EChallenges> OnChallengeActivated;
     
@@ -26,9 +27,12 @@ public class ChallengeManager : MonoBehaviour
 
     private void Awake()
     {
-        ActivedRandomChallenge(_taskDuration);
-
         _gameManager.OnGameIsOver += StopTasksController;
+    }
+
+    private void Start()
+    {
+        ActivatedRandomChallenge(_taskDuration);
     }
 
     private void StopTasksController(bool gameIsOver)
@@ -62,11 +66,11 @@ public class ChallengeManager : MonoBehaviour
         if (_timerForAddChallenge >= _timeToAddChallenge)
         {
             _timerForAddChallenge = 0f;
-            ActivedRandomChallenge(_taskDuration);
+            ActivatedRandomChallenge(_taskDuration);
         }
     }
 
-    public void ActivedRandomChallenge(float challengeDuration)
+    public void ActivatedRandomChallenge(float challengeDuration)
     {
         if (ChallengesList.Count > 0)
         {
@@ -78,8 +82,7 @@ public class ChallengeManager : MonoBehaviour
                 ActiveChallenge _activeChallenge = new ActiveChallenge(newChallenge, challengeDuration);
                 _activeChallenge.OnChallengeTimeout += HandleChallengeTimeout;
                 _activeChallenges.Add(_activeChallenge);
-                
-                Debug.Log($"Novo desafio ativado:{newChallenge}");
+
                 OnChallengeActivated?.Invoke(newChallenge);
             }
         }
@@ -87,7 +90,6 @@ public class ChallengeManager : MonoBehaviour
 
     private void HandleChallengeTimeout(EChallenges challengeType)
     {
-        Debug.Log($"Desafio expirado:{challengeType}");
         RemoveChallenge(challengeType);
 
         if (challengeType == EChallenges.CheckPacient)
@@ -110,7 +112,6 @@ public class ChallengeManager : MonoBehaviour
         if (challenge != null)
         {
             _activeChallenges.Remove(challenge);
-            Debug.Log($"Desafio concluído: {completedChallenge}");
             _gameManager.Points += _pointsEarnedPerChallenge;
         }
     }
@@ -123,8 +124,8 @@ public class ChallengeManager : MonoBehaviour
             if (challenge != null)
             {
                 _activeChallenges.Remove(challenge);
-                Debug.Log($"Desafio removido: {challengesToRemove}");
                 _gameManager.Points -= _pointsLostedPerChallenge;
+                _errorSound.SoundError();
                 _playerSounds.StopAllSounds();
             }
         }

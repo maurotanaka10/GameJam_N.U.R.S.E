@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerSounds : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerSounds : MonoBehaviour
     [SerializeField] private AudioClip _audioClearChallengeClip;
     [SerializeField] private AudioClip _audioFoodChallengeClip;
     [SerializeField, Range(0f, 100f)] private float _volume;
+
+    private bool _canPlaySound = true;
 
     private void Awake()
     {
@@ -39,6 +42,7 @@ public class PlayerSounds : MonoBehaviour
         _audioSource.clip = _audioFoodChallengeClip;
         _audioSource.Play();
     }
+    
 
     public void StopAllSounds()
     {
