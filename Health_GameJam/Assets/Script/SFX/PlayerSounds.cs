@@ -11,8 +11,6 @@ public class PlayerSounds : MonoBehaviour
     [SerializeField] private AudioClip _audioFoodChallengeClip;
     [SerializeField, Range(0f, 100f)] private float _volume;
 
-    private bool _canPlaySound = true;
-
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();

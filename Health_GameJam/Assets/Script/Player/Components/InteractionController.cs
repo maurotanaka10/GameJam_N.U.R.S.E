@@ -184,7 +184,6 @@ public class InteractionController : MonoBehaviour
 
             _playerManager.DisableInteraction();
             _enviromentSounds.SoundTaskComplete();
-            _enviromentSounds._soundIsPlaying = false;
             _playerSounds.StopAllSounds();
             _challengeCompleted = true;
         }
@@ -206,7 +205,6 @@ public class InteractionController : MonoBehaviour
         _challengeManager.CompleteChallenge(EChallenges.Clear);
         _spawnChallengeController.DestroyClearChallenge();
         _enviromentSounds.SoundTaskComplete();
-        _enviromentSounds._soundIsPlaying = false;
         _playerSounds.StopAllSounds();
     }
 
@@ -215,7 +213,6 @@ public class InteractionController : MonoBehaviour
         _challengeManager.CompleteChallenge(EChallenges.MakeFood);
         _spawnChallengeController.DestroyFoodChallenge();
         _enviromentSounds.SoundTaskComplete();
-        _enviromentSounds._soundIsPlaying = false;
     }
 
     private void PickUpObject()

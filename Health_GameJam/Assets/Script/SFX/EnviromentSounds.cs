@@ -19,7 +19,6 @@ public class EnviromentSounds : MonoBehaviour
     private void Update()
     {
         _audioSource.volume = _volume / 100;
-        _soundIsPlaying = true;
     }
 
     public void SoundTaskComplete()
@@ -34,6 +33,8 @@ public class EnviromentSounds : MonoBehaviour
         {
             _audioSource.clip = _audioGameCompleteClip;
             _audioSource.Play();
+            Debug.Log($"esta tocando o som");
+            _soundIsPlaying = false;
         }
     }
 }

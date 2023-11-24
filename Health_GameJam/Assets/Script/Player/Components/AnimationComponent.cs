@@ -22,9 +22,19 @@ public class AnimationComponent : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         GetAnimatorParameters();
-        
-        PlayerManager.OnInteract += () => SetActionAnimation(true);
-        PlayerManager.OnDisableInteract += () => SetActionAnimation(false);
+
+        PlayerManager.OnInteract += HandleSetAnimationTrue;
+        PlayerManager.OnDisableInteract += HandleSetAnimationFalse;
+    }
+
+    private void HandleSetAnimationTrue()
+    {
+        SetActionAnimation(true);
+    }
+
+    private void HandleSetAnimationFalse()
+    {
+        SetActionAnimation(false);
     }
 
     public void SetActionAnimation(bool isOn)
@@ -35,5 +45,11 @@ public class AnimationComponent : MonoBehaviour
     private void GetAnimatorParameters()
     {
         _inActionHash = Animator.StringToHash("inAction");
+    }
+
+    private void OnDisable()
+    {
+        PlayerManager.OnInteract -= HandleSetAnimationTrue;
+        PlayerManager.OnDisableInteract -= HandleSetAnimationFalse;
     }
 }

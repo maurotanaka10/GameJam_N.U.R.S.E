@@ -59,7 +59,6 @@ public class GameManager : MonoBehaviour
             GameIsOver = true;
             OnGameIsOver?.Invoke(GameIsOver);
             _enviromentSounds.SoundGameComplete();
-            _enviromentSounds._soundIsPlaying = false;
         }
     }
 
