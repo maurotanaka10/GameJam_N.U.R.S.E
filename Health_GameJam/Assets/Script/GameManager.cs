@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -9,6 +6,7 @@ using UnityEngine.Serialization;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private InputManager _inputManager;
+    [SerializeField] private EnviromentSounds _enviromentSounds;
 
     public static event Action<InputAction.CallbackContext> OnMoveReceived;
     public static event Action<bool> OnInteractionReceived;
@@ -39,6 +37,8 @@ public class GameManager : MonoBehaviour
             TimerGame = 0f;
             GameIsOver = true;
             OnGameIsOver?.Invoke(GameIsOver);
+            _enviromentSounds.SoundGameComplete();
+            _enviromentSounds._soundIsPlaying = false;
         }
 
         if (Points <= 0)

@@ -10,6 +10,7 @@ public class MovementComponent : MonoBehaviour
 
     private CharacterController _characterController;
 
+
     #endregion
 
     #region Variables
@@ -44,7 +45,7 @@ public class MovementComponent : MonoBehaviour
 
         _playerVelocity = 3f;
     }
-    
+
     private void FixedUpdate()
     {
         SetMovement(_characterMovementInput);
@@ -65,11 +66,13 @@ public class MovementComponent : MonoBehaviour
     private void SetMoveInfo(InputAction.CallbackContext context)
     {
         _characterMovementInput = context.ReadValue<Vector2>();
-        _isMoving = _characterMovementInput.x != 0 || _characterMovementInput.y != 0;
     }
 
     private void SetMovement(Vector2 _characterMovementInput)
     {
+        _isMoving = _characterMovementInput.x != 0 || _characterMovementInput.y != 0;
+        Debug.Log($"isMoving: {_isMoving}");
+
         _characterMovement = new Vector3(_characterMovementInput.x, _gravityVelocity, _characterMovementInput.y);
         _characterController.Move(_characterMovement * (_playerVelocity * Time.deltaTime));
     }

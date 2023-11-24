@@ -9,6 +9,7 @@ public class ChallengeManager : MonoBehaviour
     private EChallenges _eChallenges;
     [SerializeField] private GameManager _gameManager;
     [SerializeField] private SpawnChallengeController _spawnChallengeController;
+    [SerializeField] private PlayerSounds _playerSounds;
 
     public event Action<EChallenges> OnChallengeActivated;
     
@@ -124,6 +125,7 @@ public class ChallengeManager : MonoBehaviour
                 _activeChallenges.Remove(challenge);
                 Debug.Log($"Desafio removido: {challengesToRemove}");
                 _gameManager.Points -= _pointsLostedPerChallenge;
+                _playerSounds.StopAllSounds();
             }
         }
     }

@@ -9,6 +9,8 @@ public class InteractionController : MonoBehaviour
     [SerializeField] private ChallengeManager _challengeManager;
     [SerializeField] private SpawnChallengeController _spawnChallengeController;
     [SerializeField] private GameManager _gameManager;
+    [SerializeField] private EnviromentSounds _enviromentSounds;
+    [SerializeField] private PlayerSounds _playerSounds;
 
     [SerializeField] private Transform _localHand;
     private GameObject _objectToPickup;
@@ -61,10 +63,12 @@ public class InteractionController : MonoBehaviour
             else if (_canDoClearChallenge)
             {
                 _isDoingClearChallenge = true;
+                _playerSounds.SoundClearChallenge();
             }
             else if (_canDoPacienteCheckChallenge)
             {
                 _isDoingPacienteChallenge = true;
+                _playerSounds.SoundCheckChallenge();
             }
         }
         else
@@ -88,11 +92,11 @@ public class InteractionController : MonoBehaviour
 
         if (_isCarryingObject && collider.gameObject.CompareTag("Patient"))
         {
-            ResetPositionObject();
             _currentFoodPatient = collider.gameObject;
             if (_currentFoodPatient == _spawnChallengeController.SelectedPatientFood)
             {
                 ConclusionFoodChallenge();
+                ResetPositionObject();
             }
         }
 
@@ -170,6 +174,9 @@ public class InteractionController : MonoBehaviour
             _challengeManager.CompleteChallenge(EChallenges.CheckPacient);
             _spawnChallengeController.DestroyCheckPatientChallenge();
             _inAction = false;
+            _enviromentSounds.SoundTaskComplete();
+            _enviromentSounds._soundIsPlaying = false;
+            _playerSounds.StopAllSounds();
         }
     }
 
@@ -178,12 +185,17 @@ public class InteractionController : MonoBehaviour
         Debug.Log($"concluiu o teste de limpeza");
         _challengeManager.CompleteChallenge(EChallenges.Clear);
         _spawnChallengeController.DestroyClearChallenge();
+        _enviromentSounds.SoundTaskComplete();
+        _enviromentSounds._soundIsPlaying = false;
+        _playerSounds.StopAllSounds();
     }
 
     private void ConclusionFoodChallenge()
     {
         _challengeManager.CompleteChallenge(EChallenges.MakeFood);
         _spawnChallengeController.DestroyFoodChallenge();
+        _enviromentSounds.SoundTaskComplete();
+        _enviromentSounds._soundIsPlaying = false;
     }
 
     private void PickUpObject()
@@ -192,6 +204,8 @@ public class InteractionController : MonoBehaviour
         _objectToPickup.transform.position = _localHand.transform.position;
         _objectToPickup.GetComponent<Rigidbody>().isKinematic = true;
         _isCarryingObject = true;
+        
+        _playerSounds.SoundFoodChallenge();
     }
 
     private void DropObject()

@@ -36,7 +36,6 @@ public class PlayerManager : MonoBehaviour
         GameManager.OnMoveReceived += HandlePlayerMovement;
         GameManager.OnInteractionReceived += HandlePlayerInteraction;
         GameManager.OnRunReceived += HandlePlayerRun;
-        //AnimationComponent.PlayerVelocityRef += GetPlayerVelocity;
         MovementComponent.PlayerVelocityMove = GetPlayerVelocity;
     }
 
